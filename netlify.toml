@@ -1,14 +1,12 @@
 [build]
   functions = "functions"
-  publish   = "."
+  publish   = "."  
 
 [dev]
   functions = "functions"
 
 [[redirects]]
-  from   = "/api/*"
+  from   = "/*"
   to     = "/.netlify/functions/app"
   status = 200
   force  = true
-
-
