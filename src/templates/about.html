@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}About Us – HardwareHub{% endblock %}
+
+{% block content %}
+  <div class="row align-items-center gy-4">
+    <div class="col-md-6" data-aos="fade-right">
+      <h2>About HardwareHub</h2>
+      <p class="lead">
+        At HardwareHub, we believe in delivering top-quality hardware supplies to professionals and hobbyists alike. From power tools to hand tools, electronics to machine parts, we've got everything you need to build, fix, and innovate.
+      </p>
+      <p>
+        Our mission is to connect you with the best brands at unbeatable prices—backed by fast delivery and exceptional customer support. Whether you’re a contractor on a tight deadline or a DIY enthusiast, we’ve got your back.
+      </p>
+      <a href="{{ url_for('products') }}" class="btn btn-primary mt-3">Browse Products</a>
+    </div>
+    <div class="col-md-6 text-center" data-aos="fade-left">
+      <div class="position-relative">
+        <img
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfSKzWE_MjTdaXe8-04y3OuF7M4t7EentvYg&s"
+          alt="Hardware Tools"
+          class="img-fluid rounded shadow-lg"
+          style="max-height: 400px; object-fit: cover;"
+        />
+        <div class="position-absolute top-0 start-0 w-100 h-100" style="background: rgba(30,41,59,0.3); border-radius: 0.5rem;"></div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

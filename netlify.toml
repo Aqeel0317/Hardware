@@ -1,0 +1,15 @@
+[build]
+  # Tells Netlify “install Python dependencies found in functions/requirements.txt”
+  functions = "functions"
+  # If you only serve dynamic endpoints (no compiled front-end), you can publish “.”:
+  publish = "."
+
+[dev]
+  functions = "functions"
+
+[[redirects]]
+  # Redirect every /api/* request to the single Lambda function:
+  from = "/api/*"
+  to   = "/.netlify/functions/app"
+  status = 200
+  force = true

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}Contact Us – HardwareHub{% endblock %}
+
+{% block content %}
+  <div class="row justify-content-center">
+    <div class="col-md-6" data-aos="fade-up">
+      <h2>Get in Touch</h2>
+      <p class="text-muted">Have questions or feedback? Send us a message and we'll respond ASAP.</p>
+      <form method="POST" action="{{ url_for('contact') }}" class="mt-4">
+        <div class="mb-3">
+          <label for="name" class="form-label">Your Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            name="name"
+            placeholder="John Doe"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email Address</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            name="email"
+            placeholder="you@example.com"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="subject" class="form-label">Subject (optional)</label>
+          <input
+            type="text"
+            class="form-control"
+            id="subject"
+            name="subject"
+            placeholder="Subject"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="message" class="form-label">Message</label>
+          <textarea
+            class="form-control"
+            id="message"
+            name="message"
+            rows="5"
+            placeholder="Type your message here..."
+            required
+          ></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Send Message</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}

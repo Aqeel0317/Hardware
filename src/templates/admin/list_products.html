@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block title %}Manage Products – Admin – HardwareHub{% endblock %}
+
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center mb-4" data-aos="fade-down">
+    <h2>All Products</h2>
+    <a href="{{ url_for('admin_add_product') }}" class="btn btn-primary">
+      <i class="fa fa-plus-circle me-1"></i> Add New Product
+    </a>
+  </div>
+
+  {% if products %}
+    <div class="table-responsive" data-aos="fade-up">
+      <table class="table table-hover align-middle">
+        <thead class="table-light">
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Images</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for prod in products %}
+            <tr>
+              <td>{{ loop.index }}</td>
+              <td>{{ prod.name }}</td>
+              <td>${{ '%.2f'|format(prod.price) }}</td>
+              <td>
+                {% for img in prod.images %}
+                  <img
+                    src="{{ url_for('uploaded_file', filename=img.filename) }}"
+                    alt="img"
+                    style="width: 40px; height: 40px; object-fit: cover; border-radius: 0.25rem;"
+                    class="me-1 mb-1"
+                  />
+                {% endfor %}
+              </td>
+              <td>
+                <a
+                  href="{{ url_for('admin_edit_product', product_id=prod.id) }}"
+                  class="btn btn-sm btn-outline-primary me-1"
+                >
+                  <i class="fa fa-edit"></i>
+                </a>
+                <form
+                  method="POST"
+                  action="{{ url_for('admin_delete_product', product_id=prod.id) }}"
+                  class="d-inline"
+                  onsubmit="return confirm('Are you sure you want to delete this product?');"
+                >
+                  <button type="submit" class="btn btn-sm btn-outline-danger">
+                    <i class="fa fa-trash"></i>
+                  </button>
+                </form>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <p class="text-muted">No products found. Click “Add New Product” to start.</p>
+  {% endif %}
+{% endblock %}

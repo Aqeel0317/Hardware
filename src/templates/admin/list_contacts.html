@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Contact Messages – Admin – HardwareHub{% endblock %}
+
+{% block content %}
+  <div class="mb-4" data-aos="fade-down">
+    <h2>Contact Messages</h2>
+  </div>
+
+  {% if contacts %}
+    <div class="table-responsive" data-aos="fade-up">
+      <table class="table table-hover align-middle">
+        <thead class="table-light">
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Subject</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for msg in contacts %}
+            <tr>
+              <td>{{ msg.id }}</td>
+              <td>{{ msg.name }}</td>
+              <td>{{ msg.email }}</td>
+              <td>{{ msg.subject if msg.subject else '—' }}</td>
+              <td>{{ msg.created_at.strftime('%b %d, %Y %H:%M') }}</td>
+            </tr>
+            <tr>
+              <td colspan="5">
+                <div class="bg-light p-3 rounded">
+                  {{ msg.message }}
+                </div>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <p class="text-muted">No contact messages found.</p>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,45 @@
+<!-- templates/admin/edit_product.html -->
+{% extends 'base.html' %}
+{% block title %}Edit Product – Admin – HardwareHub{% endblock %}
+{% block content %}
+<div class="row justify-content-cenater">
+  <div class="col-md-8" data-aos="fade-up">
+    <h2 class="mb-4">Edit Product</h2>
+    
+    <form action="{{ url_for('admin_edit_product', product_id=product.id) }}" 
+          method="POST" 
+          enctype="multipart/form-data">
+      
+      <div class="mb-3">
+        <label for="name" class="form-label">Product Name</label>
+        <input type="text" class="form-control" id="name" name="name" 
+               value="{{ product.name }}" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="price" class="form-label">Price (USD)</label>
+        <input type="number" class="form-control" id="price" name="price"
+               value="{{ '%.2f'|format(product.price) }}" step="0.01" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea class="form-control" id="description" name="description" 
+                  rows="4">{{ product.description }}</textarea>
+      </div>
+
+      <div class="mb-3">
+        <label for="images" class="form-label">Upload Additional Images</label>
+        <input type="file" class="form-control" id="images" name="images"
+               accept="image/*" multiple>
+      </div>
+
+      <div class="mt-4">
+        <input type="submit" value="Update Product" class="btn btn-primary">
+        <a href="{{ url_for('admin_list_products') }}" 
+           class="btn btn-outline-secondary ms-2">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

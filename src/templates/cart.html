@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block title %}Your Cart – HardwareHub{% endblock %}
+
+{% block content %}
+  <div class="row justify-content-center">
+    <div class="col-lg-8" data-aos="fade-up">
+      <h2 class="mb-4">Shopping Cart</h2>
+
+      {% if cart_items %}
+        <div class="table-responsive mb-4">
+          <table class="table align-middle">
+            <thead class="table-light">
+              <tr>
+                <th scope="col">Product</th>
+                <th scope="col" class="text-center">Quantity</th>
+                <th scope="col" class="text-end">Price</th>
+                <th scope="col" class="text-end">Subtotal</th>
+                <th scope="col" class="text-center">Remove</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for line in cart_items %}
+                <tr>
+                  <td class="d-flex align-items-center">
+                    {% if line.product.images %}
+                      <img
+                        src="{{ url_for('uploaded_file', filename=line.product.images[0].filename) }}"
+                        alt="{{ line.product.name }}"
+                        class="me-3"
+                        style="width: 60px; height: 60px; object-fit: cover; border-radius: 0.5rem;"
+                      />
+                    {% else %}
+                      <div
+                        class="bg-light d-flex align-items-center justify-content-center me-3"
+                        style="width: 60px; height: 60px; border-radius: 0.5rem;"
+                      >
+                        <i class="fa fa-box-open fa-2x text-muted"></i>
+                      </div>
+                    {% endif %}
+                    <span>{{ line.product.name }}</span>
+                  </td>
+                  <td class="text-center">
+                    <form method="POST" action="{{ url_for('update_cart', product_id=line.product.id) }}">
+                      <input
+                        type="number"
+                        name="quantity"
+                        value="{{ line.quantity }}"
+                        min="1"
+                        class="form-control text-center"
+                        style="width: 70px;"
+                      />
+                      <button type="submit" class="btn btn-link p-0 mt-1 text-decoration-underline">Update</button>
+                    </form>
+                  </td>
+                  <td class="text-end">${{ '%.2f'|format(line.product.price) }}</td>
+                  <td class="text-end">${{ '%.2f'|format(line.subtotal) }}</td>
+                  <td class="text-center">
+                    <form method="POST" action="{{ url_for('remove_from_cart', product_id=line.product.id) }}">
+                      <button type="submit" class="btn btn-sm btn-outline-danger">
+                        <i class="fa fa-trash"></i>
+                      </button>
+                    </form>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+        <div class="d-flex justify-content-end align-items-center mb-4">
+          <h4 class="me-3">Total:</h4>
+          <h4 class="text-primary">${{ '%.2f'|format(total) }}</h4>
+        </div>
+
+        <div class="d-flex justify-content-end">
+          <a href="{{ url_for('checkout') }}" class="btn btn-primary btn-lg">
+            Proceed to Checkout
+          </a>
+        </div>
+      {% else %}
+        <div class="text-center py-5">
+          <h4>Your cart is empty.</h4>
+          <a href="{{ url_for('products') }}" class="btn btn-outline-primary mt-3">
+            Continue Shopping
+          </a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}
